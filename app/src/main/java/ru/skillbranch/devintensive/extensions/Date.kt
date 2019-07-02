@@ -39,7 +39,7 @@ fun Date.humanizeDiff(value: Date = Date()): String {
         in (45 * SECOND) .. (75 * SECOND) -> if (isFuture) "через минуту" else "минуту назад"
         in (75 * SECOND) .. (45 * MINUTE) -> {
             when(val result = (deltaTime / MINUTE).toInt()) {
-                 1 -> if (isFuture) "через $result минуту" else "$result минуту назад"
+                1 -> if (isFuture) "через $result минуту" else "$result минуту назад"
                 in 2 .. 4 -> if (isFuture) "через $result минуты" else "$result минуты назад"
                 else -> if (isFuture) "через $result минут" else "$result минут назад"
             }

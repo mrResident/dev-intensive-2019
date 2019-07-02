@@ -1,31 +1,40 @@
 package ru.skillbranch.devintensive.utils
 
-import ru.skillbranch.devintensive.models.User
 import java.lang.StringBuilder
-import java.util.*
+
 
 object Utils {
 
     private val translitMap = mapOf(
-                            "а" to "a", "б" to "b", "в" to "v",
-                            "г" to "g", "д" to "d", "е" to "e",
-                            "ё" to "e", "ж" to "zh", "з" to "z",
-                            "и" to "i", "й" to "i", "к" to "k",
-                            "л" to "l", "м" to "m", "н" to "n",
-                            "о" to "o", "п" to "p", "р" to "r",
-                            "с" to "s", "т" to "t", "у" to "u",
-                            "ф" to "f", "х" to "h", "ц" to "c",
-                            "ч" to "ch", "ш" to "sh", "щ" to "sh'",
-                            "ъ" to "", "ы" to "i", "ь" to "",
-                            "э" to "e", "ю" to "yu", "я" to "ya")
+        "а" to "a", "б" to "b", "в" to "v",
+        "г" to "g", "д" to "d", "е" to "e",
+        "ё" to "e", "ж" to "zh", "з" to "z",
+        "и" to "i", "й" to "i", "к" to "k",
+        "л" to "l", "м" to "m", "н" to "n",
+        "о" to "o", "п" to "p", "р" to "r",
+        "с" to "s", "т" to "t", "у" to "u",
+        "ф" to "f", "х" to "h", "ц" to "c",
+        "ч" to "ch", "ш" to "sh", "щ" to "sh'",
+        "ъ" to "", "ы" to "i", "ь" to "",
+        "э" to "e", "ю" to "yu", "я" to "ya")
 
     fun parseFullName(fullName: String?): Pair<String?, String?> {
         val parts : List<String>? = fullName?.split(" ")
 
-        val firstName = parts?.getOrNull(0)
-        val lastName = parts?.getOrNull(1)
+        val fn = arrayListOf<String?>(null, null)
 
-        return (if (firstName.isNullOrEmpty()) null else firstName) to (if (lastName.isNullOrEmpty()) null else lastName)
+        if (parts != null) {
+            var cnt = 0
+            for (name in parts) {
+                if (name.isNotEmpty()) {
+                    fn[cnt] = name
+                    cnt++
+                }
+                if (cnt > 1) break
+            }
+        }
+
+        return fn[0] to fn[1]
     }
 
     fun toInitials(firstName: String?, lastName: String?): String? {
@@ -65,63 +74,6 @@ object Utils {
             }
         }
         return sb.toString()
-    }
-
-    class Builder {
-
-        private var id: String = ""
-        private var firstName : String? = null
-        private var lastName : String? = null
-        private var avatar : String? = null
-        private var rating : Int = 0
-        private var respect : Int = 0
-        private var lastVisit: Date? = Date()
-        private var isOnline: Boolean = false
-
-        fun id(id: String): Builder {
-            this.id = id
-            return this
-        }
-
-        fun firstName(firstName: String?): Builder {
-            this.firstName = firstName
-            return this
-        }
-
-        fun lastName(lastName: String?): Builder {
-            this.lastName = lastName
-            return this
-        }
-
-        fun avatar(avatar: String?): Builder {
-            this.avatar = avatar
-            return this
-        }
-
-        fun rating(rating: Int): Builder {
-            this.rating = rating
-            return this
-        }
-
-        fun respect(respect: Int): Builder {
-            this.respect = respect
-            return this
-        }
-
-        fun lastVisit(lastVisit: Date?): Builder {
-            this.lastVisit = lastVisit
-            return this
-        }
-
-        fun isOnline(isOnline: Boolean): Builder {
-            this.isOnline = isOnline
-            return this
-        }
-
-        fun build(): User {
-            return User(id, firstName, lastName, avatar, rating, respect, lastVisit, isOnline)
-        }
-
     }
 
 }
