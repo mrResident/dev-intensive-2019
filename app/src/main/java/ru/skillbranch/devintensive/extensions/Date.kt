@@ -1,5 +1,7 @@
 package ru.skillbranch.devintensive.extensions
 
+import android.service.autofill.Validators.and
+import java.lang.IllegalArgumentException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -72,6 +74,43 @@ enum class TimeUnits {
     DAY;
 
     fun plural(time: Int): String {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        if ((time - ((time / 100) * 100)) in 10 .. 19) {
+            return when(this.name) {
+                SECOND.name -> "$time секунд"
+                MINUTE.name -> "$time минут"
+                HOUR.name -> "$time часов"
+                DAY.name -> "$time дней"
+                else -> throw IllegalArgumentException()
+            }
+        }
+        when (time - ((time / 10) * 10)) {
+            1 -> {
+                return when (this.name) {
+                    SECOND.name -> "$time секунду"
+                    MINUTE.name -> "$time минуту"
+                    HOUR.name -> "$time час"
+                    DAY.name -> "$time день"
+                    else -> throw IllegalArgumentException()
+                }
+            }
+            in 2 .. 4 -> {
+                return when (this.name) {
+                    SECOND.name -> "$time секунды"
+                    MINUTE.name -> "$time минуты"
+                    HOUR.name -> "$time часа"
+                    DAY.name -> "$time дня"
+                    else -> throw IllegalArgumentException()
+                }
+            }
+            else -> {
+                return when (this.name) {
+                    SECOND.name -> "$time секунд"
+                    MINUTE.name -> "$time минут"
+                    HOUR.name -> "$time часов"
+                    DAY.name -> "$time дней"
+                    else -> throw IllegalArgumentException()
+                }
+            }
+        }
     }
 }
