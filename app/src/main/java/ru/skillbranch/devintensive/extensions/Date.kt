@@ -44,15 +44,15 @@ fun Date.humanizeDiff(value: Date = Date()): String {
                 else -> if (isFuture) "через $result минут" else "$result минут назад"
             }
         }
-        in (45 * MINUTE) .. (75 * MINUTE) -> "час назад"
+        in (45 * MINUTE) .. (75 * MINUTE) -> if (isFuture) "через час" else "час назад"
         in (75 * MINUTE) .. (22 * HOUR) -> {
             when(val result = (deltaTime / HOUR).toInt()) {
-                1 -> if (isFuture) "через $result час" else "$result час назад"
-                in 2 .. 4 -> if (isFuture) "через $result часа" else "$result часа назад"
+                1, 21 -> if (isFuture) "через $result час" else "$result час назад"
+                in 2 .. 4, in 22 .. 24 -> if (isFuture) "через $result часа" else "$result часа назад"
                 else -> if (isFuture) "через $result часов" else "$result часов назад"
             }
         }
-        in (2 * HOUR) .. (26 * HOUR) -> "день назад"
+        in (2 * HOUR) .. (26 * HOUR) -> if (isFuture) "через день" else "день назад"
         in (26 * HOUR) .. (360 * DAY) -> {
             when(val result = (deltaTime / DAY).toInt()) {
                 1 -> if (isFuture) "через $result день" else "$result день назад"
@@ -69,5 +69,9 @@ enum class TimeUnits {
     SECOND,
     MINUTE,
     HOUR,
-    DAY
+    DAY;
+
+    fun plural(time: Int): String {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 }
