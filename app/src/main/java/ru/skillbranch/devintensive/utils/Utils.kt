@@ -41,7 +41,7 @@ object Utils {
         if (firstName.isNullOrBlank() && lastName.isNullOrBlank()) {
             return null
         }
-        return "${if (!firstName.isNullOrBlank()) firstName.toUpperCase()[0] else ""}${if (!lastName.isNullOrBlank()) lastName.toUpperCase()[0] else ""}"
+        return "${if (!firstName.isNullOrBlank()) firstName.toUpperCase().trim()[0] else ""}${if (!lastName.isNullOrBlank()) lastName.toUpperCase().trim()[0] else ""}"
     }
 
     fun transliteration(payload: String, divider: String = " "): String {
