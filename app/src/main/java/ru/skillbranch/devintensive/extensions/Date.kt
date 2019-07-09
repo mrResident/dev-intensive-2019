@@ -1,6 +1,5 @@
 package ru.skillbranch.devintensive.extensions
 
-import android.service.autofill.Validators.and
 import java.lang.IllegalArgumentException
 import java.text.SimpleDateFormat
 import java.util.*
