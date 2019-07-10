@@ -15,10 +15,5 @@ fun String.truncate(num: Int = 16): String {
 }
 
 fun String.stripHtml(): String {
-    val matchedResults = Regex(pattern = """\d+\w+""").findAll(input = this)
-    val result = StringBuilder()
-    for (matchedText in matchedResults) {
-        result.append(matchedText.value + " ")
-    }
-    return result.toString()
+    return replace(Regex(pattern = "(<.+?>)|(&((\\w+)|(#\\w+));)"), "").replace(Regex(pattern = " {2,}"), " ")
 }
